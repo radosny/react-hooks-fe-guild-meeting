@@ -1,0 +1,28 @@
+import React, { useCallback, useState } from "react";
+import useApi from "./useApi";
+import List from "./List";
+
+export default () => {
+  const [
+    data,
+    getNextItem,
+    removeLastItem,
+    setUrl
+  ] = useApi('http://myapi/v1/random');
+
+  return (
+    <>
+      <button onClick={getNextItem}>add</button>
+      <button onClick={removeLastItem}>remove</button>
+      <List items={data}/>
+    </>
+  );
+};
+
+
+
+
+
+
+
+

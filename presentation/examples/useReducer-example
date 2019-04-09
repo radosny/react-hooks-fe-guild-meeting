@@ -1,0 +1,31 @@
+import React, { useCallback, useReducer } from "react";
+
+const DadJokes = () => {
+  const [jokes, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case "ADD": return [...state, action.data];
+      case "REMOVE":
+        state.pop();
+        return [...state];
+      default: return state;
+    }
+  }, []);
+  
+  const removeLastJoke = useCallback(() => 
+    dispatch({ type: "REMOVE" }), []);
+  
+  const fetchRandomJoke = useCallback(() => {
+    (async () => {
+      const { joke, id } = await fetch(url)
+      dispatch({ type: "ADD", data: { joke, id } });
+    })();
+  }, []);
+
+  return (
+    <>
+      <button onClick={fetchRandomJoke}>Add</button>
+      <button onClick={removeLastJoke}>Remove</button>
+      <JokesList jokes={jokes} /> 
+    </>
+  );
+};

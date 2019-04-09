@@ -1,0 +1,32 @@
+import { useReducer, useCallback, useEffect, useState } from "react";
+
+function useApi(apiUrl,
+  factory = d => d, fetchOnCdM = true) {
+
+  const [url, setUrl] = useState(apiUrl);
+  const [data, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case "ADD": //reducer code here
+      case "REMOVE": //reducer code here
+      default: return state;
+    }
+  }, []);
+
+  const removeLastItem = useCallback(() =>
+    dispatch({ type: "REMOVE" }), []);
+    
+  const getNextItem = useCallback(() => {
+    (async () => {
+      const respJSON = await fetch(url);
+      dispatch({ type: "ADD", data: factory(respJSON) });
+    })();
+  }, [factory, url]);
+
+  useEffect(() => {
+    fetchOnCdM && getNextItem();
+  }, [url, fetchOnCdM, getNextItem]);
+
+  return [data, getNextItem, removeLastItem, setUrl];
+}
+
+export default useApi;

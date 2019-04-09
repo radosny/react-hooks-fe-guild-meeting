@@ -1,0 +1,21 @@
+import React, { useState } from "react";
+
+const DadJoke = () => {
+  const [showJoke, setShowJoke] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setShowJoke(!showJoke)}>
+        {showJoke ? "Hide" : "Show"} dad joke!
+      </button>
+      {showJoke && (
+        <div>
+          What did the calculator say to the student?
+          You can count on me.
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DadJoke;
