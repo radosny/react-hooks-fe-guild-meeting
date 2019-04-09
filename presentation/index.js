@@ -118,7 +118,7 @@ export default class Presentation extends React.Component {
               zIndex: 1
             }}
           >
-            Let's back to the history!
+            Let's go back in history!
           </Heading>
           <Image src={images.reactHistory} />
         </Slide>
